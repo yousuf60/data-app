@@ -12,6 +12,11 @@ KV="""
 <ma_card>:
 	size_hint:1,None
 	height:dp(100)
+	MDCard:
+		size_hint:None,1
+		width:dp(10)
+		md_bg_color:213/255, 184/255, 1, 1#1, 180/255, 70/255, 1
+		radius:[0,0,0,0]
 	MDBoxLayout:
 		orientation:"vertical"		
 		MDLabel:
@@ -21,37 +26,38 @@ KV="""
 		MDLabel:
 			id:number
 			text:"number"
-	MDIconButton:
-		icon:"plus"
-		on_press:root.plus()
-		pos_hint:{'center_y':.5}
-	MDIconButton:
-		icon:"minus"
-		on_press:root.minus()
-		pos_hint:{'center_y':.5}
+	MDBoxLayout:
+		orientation:"vertical"
+		MDIconButton:
+			icon:"plus"
+			on_press:root.plus()
+			pos_hint:{'center_y':.5}
+		MDIconButton:
+			icon:"minus"
+			on_press:root.minus()
+			pos_hint:{'center_y':.5}
 
 	MDFloatLayout:	
-		MDFlatButton:
+		MDRectangleFlatButton:
 			text:"delete"
+		
+			line_color:0,0,1,1
+			text_color:0,0,1,1
 			on_release:
 				app.delete(root)
 				root.delete()
-			pos_hint:{"right":1,'center_y':.5}
+			pos_hint:{"right":1,"center_y":.23}
 
 MDBoxLayout:
 	canvas:
 		Color
-			rgba:0,0,.8,1
+			rgba:140/255, 20/255, 252/255, 1#0,0,1,.8
 		Rectangle:
 			size:self.size
 			pos:self.pos
 	MDBoxLayout:
 		orientation:"vertical"
-		ScrollView:
-			
-			MDList:	
-				spacing:dp(20)
-				id:list
+
 		MDCard:
 			size_hint:1,.23
 			md_bg_color:1, 180/255, 70/255, 1
@@ -62,11 +68,13 @@ MDBoxLayout:
 					orientation:"vertical"
 					MDTextField:
 						hint_text:"name"
-						line_color_focus:0,0,0,1
+						line_color_focus:0,0,1,1
+						text_color:0,0,1,1
 						id:new
 					MDTextField:
 						hint_text:"num"
-						line_color_focus:0,0,0,1
+						line_color_focus:0,0,1,1
+						text_color:0,0,1,1
 						id:new_num
 
 				MDIconButton:
@@ -74,14 +82,18 @@ MDBoxLayout:
 					pos_hint:{"top":.7}
 					on_press:app.add_new()
 
-				
+		ScrollView:
+			size_hint:.9,1
+			MDList:	
+				spacing:dp(10)
+				id:list
 				
 
 
 
 """
 class ma_card(MDCard):
-	md_bg_color=(.5,.5,.5,1)
+	md_bg_color=(154/255, 18/255, 179/255, 1)#(1,3/255,158/255,1)#(.5,.5,.5,1)
 
 	def __init__(self,x,y,**kwargs):
 		super().__init__()
