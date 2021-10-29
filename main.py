@@ -38,11 +38,9 @@ KV="""
 			pos_hint:{'center_y':.5}
 
 	MDFloatLayout:	
-		MDRectangleFlatButton:
-			text:"delete"
+		MDIconButton:
+			icon:"delete"
 		
-			line_color:0,0,1,1
-			text_color:0,0,1,1
 			on_release:
 				app.delete(root)
 				root.delete()
@@ -51,16 +49,17 @@ KV="""
 MDBoxLayout:
 	canvas:
 		Color
-			rgba:140/255, 20/255, 252/255, 1#0,0,1,.8
+			rgba:1,1,1,1#57/255, 46/255, 133/255,1#140/255, 20/255, 252/255, 1#0,0,1,.8
 		Rectangle:
 			size:self.size
 			pos:self.pos
 	MDBoxLayout:
 		orientation:"vertical"
+		md_bg_color:1,1,1,1
 
 		MDCard:
 			size_hint:1,.23
-			md_bg_color:1, 180/255, 70/255, 1
+			md_bg_color:42/255, 23/255, 177/255,1#1, 180/255, 70/255, 1
 			radius:[0,0,0,0]
 			MDBoxLayout:
 				orientation:"horizontal"
@@ -68,13 +67,13 @@ MDBoxLayout:
 					orientation:"vertical"
 					MDTextField:
 						hint_text:"name"
-						line_color_focus:0,0,1,1
-						text_color:0,0,1,1
+						line_color_focus:1,1,1,1
+						text_color:1,1,1,1
 						id:new
 					MDTextField:
 						hint_text:"num"
-						line_color_focus:0,0,1,1
-						text_color:0,0,1,1
+						line_color_focus:1,1,1,1
+						text_color:1,1,1,1
 						id:new_num
 
 				MDIconButton:
@@ -82,18 +81,23 @@ MDBoxLayout:
 					pos_hint:{"top":.7}
 					on_press:app.add_new()
 
-		ScrollView:
-			size_hint:.9,1
-			MDList:	
-				spacing:dp(10)
-				id:list
-				
+		MDFloatLayout:
+			md_bg_color:57/255, 46/255, 133/255,1	
+			size_hint:1,1
+			ScrollView:
+				size_hint:.9,1
+
+				MDList:
+
+					spacing:dp(10)
+					id:list
+					
 
 
 
 """
 class ma_card(MDCard):
-	md_bg_color=(154/255, 18/255, 179/255, 1)#(1,3/255,158/255,1)#(.5,.5,.5,1)
+	md_bg_color=(93/255, 75/255, 216/255,1)#(154/255, 18/255, 179/255, 1)#(1,3/255,158/255,1)#(.5,.5,.5,1)
 
 	def __init__(self,x,y,**kwargs):
 		super().__init__()
@@ -138,7 +142,14 @@ class main(MDApp):
 			self.root.ids.new.text,self.root.ids.new_num.text="",""
 			database["informations"][x]=y
 			json.dump(database,open(database_path,'w'))
+		elif  self.root.ids.new.text:
+			x=self.root.ids.new.text
+			y="1"
 
+			self.root.ids.list.add_widget(ma_card(x,y))
+			self.root.ids.new.text,self.root.ids.new_num.text="",""
+			database["informations"][x]=y
+			json.dump(database,open(database_path,'w'))
 	def delete(self,x):
 		self.root.ids.list.remove_widget(x)
 		print(x)
